@@ -5,13 +5,15 @@ A project to generate beautiful word clouds from text input, both in the command
 ## Description
 
 Word Cloud Generator provides two implementations of word cloud visualization:
+
 - Command Line Interface (CLI) version using Python's `wordcloud` library
 - Browser-based version using JavaScript `d3.js` library
 
 ## Features
 
 ✨ Key features include:
-- Generate word clouds from plain text input
+
+- Generate word clouds from plaintext input
 - Multiple visualization options
 - Easy to use interface
 - Cross-platform compatibility
@@ -21,7 +23,8 @@ Word Cloud Generator provides two implementations of word cloud visualization:
 ### Prerequisites
 
 For the CLI version you'll need:
-```
+
+```CLI
 git clone https://github.com/yourusername/wordy-cloudy.git
 cd wordy-cloudy
 pip install -r requirements.txt
@@ -36,11 +39,13 @@ No installation required for the browser-based version - just open the HTML file
 ### CLI Version
 
 Basic usage:
+
 ```bash
 python cli_wordcloud.py "input text"
 ```
 
 For more options:
+
 ```bash
 python cli_wordcloud.py --help
 ```
@@ -58,4 +63,3 @@ Contributions are welcome! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) 
 ## License
 
 This project is licensed under MIT - see [LICENSE](./LICENSE) for details.
-
