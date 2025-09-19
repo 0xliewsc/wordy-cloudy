@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
+  </head>
+  <body>
+    Pyodide test page <br>
+    Open your browser console to see Pyodide output
+    <script type="text/javascript">
+      async function main(){
+        let pyodide = await loadPyodide();
+ 	      await pyodide.loadPackage("micropip");
+        const micropip = pyodide.pyimport("micropip");
+        await micropip.install('wordcloud');
+        console.log(pyodide.runPython(`
+            import sys
+            import wordcloud
+            from wordcloud import WordCloud, STOPWORDS
+            import matplotlib.pyplot as plt
+            sys.version
+        `));
+        // dummytext = ["passage", "time", "fun", "time", "flies", "woot", "humour", "jokes"]
+        console.log(pyodide.runPython(`
+            dummytext = "passage time fun time flies woot humour jokes poop toilet sun moon jupiter mars brown blue yellow red pink purple orange lemon lime grape mango"
+            wordcloud = WordCloud(width=200, height=200, background_color='white', stopwords=STOPWORDS.update(['and', 'the', 'of']), max_words=2000).generate(dummytext)
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            plt.show(block=True)
+            plt.close()
+            #print(f"Word cloud saved!")
+        `));
+        pyodide.runPython("print(1 + 2)");
+      }
+      main();
+    </script>
+  </body>
+</html>
