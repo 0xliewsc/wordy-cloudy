@@ -18,13 +18,24 @@ def main():
     parser.add_argument('--background_color', default='white', help='Background color of the word cloud')
     args = parser.parse_args()
 
-    # Read input text
+    # Read and process input text efficiently for large files
+    wordcloud = WordCloud(
+        width=args.width,
+        height=args.height,
+        background_color=args.background_color,
+        stopwords=STOPWORDS.update(['and', 'the', 'of']),
+        max_words=2000
+    )
+
     if args.input_file:
         if not os.path.exists(args.input_file):
             raise FileNotFoundError(f"Input file {args.input_file} does not exist")
         
         with open(args.input_file, 'r') as f:
-            text = f.read()
+            # Process text incrementally for better memory usage
+            for chunk in iter(lambda: f.read(4096), ""):
+                if chunk:
+                    wordcloud.add_to_sample(chunk.lower())
     else:
         if sys.stdin.isatty():
             print("No input provided. Please provide text either via a file or stdin.")
@@ -59,7 +70,8 @@ def main():
         # Show the image in a window
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
-        plt.show()
+        plt.show(block=True)
+        plt.close()
 
 if __name__ == "__main__":
     try:
