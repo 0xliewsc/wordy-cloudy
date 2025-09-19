@@ -32,10 +32,8 @@ def main():
             raise FileNotFoundError(f"Input file {args.input_file} does not exist")
         
         with open(args.input_file, 'r') as f:
-            # Process text incrementally for better memory usage
-            for chunk in iter(lambda: f.read(4096), ""):
-                if chunk:
-                    wordcloud.add_to_sample(chunk.lower())
+            # Read entire content into memory
+            text = f.read().lower()
     else:
         if sys.stdin.isatty():
             print("No input provided. Please provide text either via a file or stdin.")
@@ -51,16 +49,14 @@ def main():
             return
     
     # Process the text
-    processed_text = text.lower()
-
-    # Create wordcloud object
+    # Create wordcloud object and generate
     wordcloud = WordCloud(
         width=args.width,
         height=args.height,
         background_color=args.background_color,
         stopwords=STOPWORDS.update(['and', 'the', 'of']),
         max_words=2000
-    ).generate(processed_text)
+    ).generate(text)
 
     if args.output:
         # Save the image to file
