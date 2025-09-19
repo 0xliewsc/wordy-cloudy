@@ -11,8 +11,7 @@ def main():
         epilog='If no input file is provided, text will be read from stdin'
     )
     parser.add_argument('input_file', 
-                       help='Optional path to the text file. If omitted, text will be read from stdin',
-                       required=False)
+                       help='Optional path to the text file. If omitted, text will be read from stdin')
     parser.add_argument('--output', '-o', help='Output image filename (png)')
     parser.add_argument('--width', type=int, default=800, help='Width of the output image')
     parser.add_argument('--height', type=int, default=400, help='Height of the output image')
